@@ -30,7 +30,7 @@ How to clone project:
  - REFRESH_TOKEN_KEY - your key for refresh token, for longer connection
  - CLOUD_NAME , CLOUDINARY_API_KEY , CLOUDINARY_API_SECRET_KEY , CLOUDINARY_URL - your settings for cloudinary
  connection, where dashboard backgrounds and user avatars stored
- - OUTLOOKEMAIL , OUTLOOK_PASSWORD - settings for help window message in app.
+ - OUTLOOK_EMAIL , OUTLOOK_PASSWORD - settings for help window message in app.
 
 Our Team(and main roles):
 
