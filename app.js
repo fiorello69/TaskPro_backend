@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import logger from "morgan";
 import cors from "cors";
-import { serve, setup } from "swagger-ui-express";
+import swaggerUi from "swagger-ui-express";
 import JSON5 from "json5";
 import fs from "fs";
 import authRouter from "./routes/api/auth.js";
@@ -20,7 +20,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(json());
 
-app.use("/api-docs", serve, setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/users", authRouter);
 
