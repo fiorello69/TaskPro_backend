@@ -2,7 +2,8 @@ import express, { json } from "express";
 import logger from "morgan";
 import cors from "cors";
 import { serve, setup } from "swagger-ui-express";
-import swaggerDocument from "./swagger.json" assert { type: "json" };
+import JSON5 from "json5";
+import fs from "fs";
 import authRouter from "./routes/api/auth.js";
 import dashboardRouter from "./routes/api/dashboards.js";
 import columnRouter from "./routes/api/column.js";
@@ -12,6 +13,8 @@ import "dotenv/config";
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+const swaggerDocument = JSON5.parse(fs.readFileSync("./swagger.json", "utf-8"));
 
 app.use(logger(formatsLogger));
 app.use(cors());
