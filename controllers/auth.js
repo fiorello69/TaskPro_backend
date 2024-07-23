@@ -7,8 +7,6 @@ import controllerWrapper from "../helpers/decorators.js";
 import "dotenv/config";
 
 const { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } = process.env;
-console.log("ACCESS_TOKEN_KEY:", ACCESS_TOKEN_KEY);
-console.log("REFRESH_TOKEN_KEY:", REFRESH_TOKEN_KEY);
 const bcryptHash = bcrypt.hash;
 const bcryptCompare = bcrypt.compare;
 const jwtSign = jwt.sign;
