@@ -152,27 +152,65 @@ async function updateProfile(req, res) {
   res.json(result);
 }
 
+// async function getHelpEmail(req, res) {
+//   const { email, comment } = req.body;
+
+//   const helpReq = {
+//     to: "taskproteam5@gmail.com",
+//     subject: "User need help",
+//     html: `<p> Email: ${email}, Comment: ${comment}</p>`,
+//   };
+//   await sendEmail(helpReq);
+//   const helpRes = {
+//     to: email,
+//     subject: "Support",
+//     html: `<p>Thank you for you request! We will consider your comment ${comment}</p>`,
+//   };
+//   await sendEmail(helpRes);
+
+//   res.json({
+//     message: "Reply email sent",
+//   });
+// }
 async function getHelpEmail(req, res) {
-  const { email, comment } = req.body;
+  const { comment } = req.body;
 
+  // Verifică dacă emailul utilizatorului logat este disponibil
+  const userEmail = req.user.email;
+  if (!userEmail) {
+    throw HttpError(400, "User email is not available");
+  }
+
+  // Creează emailul pentru echipa de suport
   const helpReq = {
-    to: "taskpro.project@gmail.com",
+    from: userEmail, // Folosește emailul utilizatorului logat ca expeditor
+    to: "taskproteam5@gmail.com", // Adresa destinatarului fixă
     subject: "User need help",
-    html: `<p> Email: ${email}, Comment: ${comment}</p>`,
+    html: `<p>Email: ${userEmail}, Comment: ${comment}</p>`, // Include emailul utilizatorului
   };
-  await sendEmail(helpReq);
-  const helpRes = {
-    to: email,
-    subject: "Support",
-    html: `<p>Thank you for you request! We will consider your comment ${comment}</p>`,
-  };
-  await sendEmail(helpRes);
 
-  res.json({
-    message: "Reply email sent",
-  });
+  try {
+    // Trimite emailul către echipa de suport
+    await sendEmail(helpReq);
+
+    // Creează și trimite emailul de confirmare către utilizator
+    const helpRes = {
+      from: "taskproteam5@gmail.com", // Folosește o adresă fixă pentru confirmarea către utilizator
+      to: userEmail,
+      subject: "Support",
+      html: `<p>Thank you for your request! We will consider your comment: ${comment}</p>`,
+    };
+
+    await sendEmail(helpRes);
+
+    res.json({
+      message: "Reply email sent",
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw HttpError(500, "Failed to send email");
+  }
 }
-
 export default {
   register: controllerWrapper(register),
   login: controllerWrapper(login),
