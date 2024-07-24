@@ -30,7 +30,7 @@ app.use("/api/column", columnRouter);
 
 app.use("/api/card", cardRouter);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("Welcome to the API!");
 });
 
