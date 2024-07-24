@@ -1,7 +1,4 @@
 import { Schema, model } from "mongoose";
-
-// import authenticate from "../middlewares/authenticate";
-
 import MongooseError from "../helpers/MongooseError.js";
 
 const dashboardSchema = new Schema(
