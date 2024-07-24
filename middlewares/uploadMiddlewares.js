@@ -1,3 +1,26 @@
+// import { v2 as cloudinary } from "cloudinary";
+// import { CloudinaryStorage } from "multer-storage-cloudinary";
+// import multer from "multer";
+// import "dotenv/config";
+
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET_KEY,
+// });
+
+// const storage = new CloudinaryStorage({
+//   cloudinary,
+//   folder: "avatars",
+//   allowedFormats: ["jpg", "png"],
+//   filename: (_req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const uploadCloud = multer({ storage });
+
+// export default uploadCloud;
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import multer from "multer";
@@ -9,15 +32,24 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET_KEY,
 });
 
+const allowedFormats = ["jpg", "jpeg", "png", "gif"];
+
 const storage = new CloudinaryStorage({
-  cloudinary,
-  folder: "avatars",
-  allowedFormats: ["jpg", "png"],
-  filename: (_req, file, cb) => {
-    cb(null, file.originalname);
+  cloudinary: cloudinary,
+  params: {
+    folder: "avatars",
+    format: async (req, file) => {
+      const fileExtension = file.mimetype.split("/")[1];
+      if (allowedFormats.includes(fileExtension)) {
+        return fileExtension;
+      } else {
+        throw new Error("Invalid file format");
+      }
+    },
+    public_id: (req, file) => file.originalname.split(".")[0],
   },
 });
 
-const uploadCloud = multer({ storage });
+const uploadCloud = multer({ storage: storage });
 
 export default uploadCloud;
