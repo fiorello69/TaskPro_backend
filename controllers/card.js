@@ -2,16 +2,17 @@ import HttpError from "../helpers/HttpError.js";
 import controllerWrapper from "../helpers/decorators.js";
 import Card from "../models/card.js";
 
+
 async function getById(req, res) {
   const { cardId } = req.params;
-  const result = await Card.FindById(cardId);
+  const result = await Card.findById(cardId);
   if (!result) throw HttpError(404);
   res.json(result);
 }
 
 async function addNew(req, res) {
   const { columnId } = req.params;
-  const result = await Card.Create({
+  const result = await Card.create({
     ...req.body,
     owner: columnId,
   });
@@ -20,14 +21,14 @@ async function addNew(req, res) {
 
 async function removeById(req, res) {
   const { cardId } = req.params;
-  const result = await Card.FindByIdAndRemove(cardId);
+  const result = await Card.findByIdAndRemove(cardId);
   if (!result) throw HttpError(404);
   res.json(result);
 }
 
 async function updateById(req, res) {
   const { cardId } = req.params;
-  const result = await Card.FindByIdAndUpdate(cardId, req.body, {
+  const result = await Card.findByIdAndUpdate(cardId, req.body, {
     new: true,
   });
   if (!result) throw HttpError(404);
@@ -36,7 +37,7 @@ async function updateById(req, res) {
 
 async function setNewCardOwner(req, res) {
   const { cardId, columnId } = req.params;
-  const result = await Card.FindByIdAndUpdate(
+  const result = await Card.findByIdAndUpdate(
     cardId,
     { owner: columnId },
     {

@@ -1,5 +1,6 @@
 import Joi from "joi";
 
+
 const emailRegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 const registerSchema = Joi.object({
