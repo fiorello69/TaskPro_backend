@@ -49,9 +49,9 @@ async function addNew(req, res) {
   res.status(201).json(result);
 }
 
-async function removeById(req, res) {
+async function deleteById(req, res) {
   const { dashboardId } = req.params;
-  const deletedBoard = await Dashboard.findByIdAndRemove(dashboardId);
+  const deletedBoard = await Dashboard.findByIdAndDelete(dashboardId);
   const columns = await Column.find({ owner: dashboardId });
   const deletedColumn = await Column.deleteMany({ owner: dashboardId });
   const ArrayColumnsIds = columns.map((column) => column._id);
@@ -89,7 +89,7 @@ async function updateCurrentDashboard(req, res) {
 const wrappedGetAll = controllerWrapper(getAll);
 const wrappedGetById = controllerWrapper(getById);
 const wrappedAddNew = controllerWrapper(addNew);
-const wrappedRemoveById = controllerWrapper(removeById);
+const wrappedDeleteById = controllerWrapper(deleteById);
 const wrappedUpdateById = controllerWrapper(updateById);
 const wrappedUpdateCurrentDashboard = controllerWrapper(updateCurrentDashboard);
 
@@ -97,7 +97,7 @@ export {
   wrappedGetAll as getAll,
   wrappedGetById as getById,
   wrappedAddNew as addNew,
-  wrappedRemoveById as removeById,
+  wrappedDeleteById as deleteById,
   wrappedUpdateById as updateById,
   wrappedUpdateCurrentDashboard as updateCurrentDashboard,
 };

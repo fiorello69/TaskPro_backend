@@ -4,7 +4,7 @@ import {
   getById,
   addNew,
   updateById,
-  removeById,
+  deleteById,
   updateCurrentDashboard,
 } from "../../controllers/dashboard.js";
 import authenticate from "../../middlewares/authenticate.js";
@@ -21,6 +21,6 @@ router.put("/:dashboardId", authenticate, updateById);
 
 router.patch("/:dashboardId", authenticate, updateCurrentDashboard);
 
-router.delete("/:dashboardId", authenticate, removeById);
+router.delete("/:dashboardId", authenticate, deleteById);
 
 export default router;

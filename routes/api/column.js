@@ -4,7 +4,7 @@ import {
   getById,
   updateById,
   addNew,
-  removeById,
+  deleteById,
 } from "../../controllers/column.js";
 
 const router = express.Router();
@@ -15,6 +15,6 @@ router.post("/:dashboardId", authenticate, addNew);
 
 router.put("/:columnId", authenticate, updateById);
 
-router.delete("/:columnId", authenticate, removeById);
+router.delete("/:columnId", authenticate, deleteById);
 
 export default router;

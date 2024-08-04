@@ -23,7 +23,7 @@ async function addNew(req, res) {
   res.status(201).json(result);
 }
 
-async function removeById(req, res) {
+async function deleteById(req, res) {
   const { columnId } = req.params;
   const result = await Column.findByIdAndDelete(columnId);
   if (!result) throw HttpError(404);
@@ -41,12 +41,12 @@ async function updateById(req, res) {
 
 const wrappedGetById = controllerWrapper(getById);
 const wrappedAddNew = controllerWrapper(addNew);
-const wrappedRemoveById = controllerWrapper(removeById);
+const wrappedDeleteById = controllerWrapper(deleteById);
 const wrappedUpdateById = controllerWrapper(updateById);
 
 export {
   wrappedGetById as getById,
   wrappedAddNew as addNew,
-  wrappedRemoveById as removeById,
+  wrappedDeleteById as deleteById,
   wrappedUpdateById as updateById,
 };

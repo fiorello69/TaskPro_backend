@@ -19,9 +19,9 @@ async function addNew(req, res) {
   res.status(201).json(result);
 }
 
-async function removeById(req, res) {
+async function deleteById(req, res) {
   const { cardId } = req.params;
-  const result = await Card.findByIdAndRemove(cardId);
+  const result = await Card.findByIdAndDelete(cardId);
   if (!result) throw HttpError(404);
   res.json(result);
 }
@@ -50,14 +50,14 @@ async function setNewCardOwner(req, res) {
 
 const wrappedGetById = controllerWrapper(getById);
 const wrappedAddNew = controllerWrapper(addNew);
-const wrappedRemoveById = controllerWrapper(removeById);
+const wrappedDeleteById = controllerWrapper(deleteById);
 const wrappedUpdateById = controllerWrapper(updateById);
 const wrappedSetNewCardOwner = controllerWrapper(setNewCardOwner);
 
 export {
   wrappedGetById as getById,
   wrappedAddNew as addNew,
-  wrappedRemoveById as removeById,
+  wrappedDeleteById as deleteById,
   wrappedUpdateById as updateById,
   wrappedSetNewCardOwner as setNewCardOwner,
 };

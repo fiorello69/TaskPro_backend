@@ -4,7 +4,7 @@ import {
   getById,
   updateById,
   addNew,
-  removeById,
+  deleteById,
   setNewCardOwner,
 } from "../../controllers/card.js";
 import authenticate from "../../middlewares/authenticate.js";
@@ -17,7 +17,7 @@ router.post("/:columnId", authenticate, addNew);
 
 router.put("/:cardId", authenticate, updateById);
 
-router.delete("/:cardId", authenticate, removeById);
+router.delete("/:cardId", authenticate, deleteById);
 
 router.patch("/:cardId/owner/:columnId", authenticate, setNewCardOwner);
 
