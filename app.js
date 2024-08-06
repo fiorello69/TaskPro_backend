@@ -86,10 +86,7 @@ app.use(logger(formatsLogger));
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "https://fiorello69.github.io/TaskPro_frontend",
-    ], // Înlocuiește cu domeniul tău GitHub Pages
+    origin: ["http://localhost:3001", "https://fiorello69.github.io"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
