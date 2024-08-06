@@ -83,14 +83,14 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const swaggerDocument = JSON5.parse(fs.readFileSync("./swagger.json", "utf-8"));
 
 app.use(logger(formatsLogger));
+
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: ["http://localhost:3001", "https://fiorello69.github.io"], // Înlocuiește cu domeniul tău GitHub Pages
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
 app.use(json());
 app.use(
   session({
