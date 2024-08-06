@@ -1,5 +1,5 @@
 async function googleCallback(_req, res) {
-  res.redirect("/current");
+  res.redirect("/");
 }
 
 async function googleLogout(req, res, next) {

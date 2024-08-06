@@ -83,14 +83,21 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const swaggerDocument = JSON5.parse(fs.readFileSync("./swagger.json", "utf-8"));
 
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "your_secret_key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Set `secure: true` in production with HTTPS
+    cookie: { secure: false },
   })
 );
 app.use(passport.initialize());

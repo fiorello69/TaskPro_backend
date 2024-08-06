@@ -23,7 +23,10 @@ const storage = new CloudinaryStorage({
         throw new Error("Invalid file format");
       }
     },
-    public_id: (req, file) => file.originalname.split(".")[0],
+    public_id: (_req, file) => {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      return file.originalname.split(".")[0] + "-" + uniqueSuffix;
+    },
   },
 });
 
